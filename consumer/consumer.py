@@ -1,7 +1,8 @@
 import datetime
 from flask import Flask, Response, render_template
 from kafka import KafkaConsumer
-
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL) 
 # Fire up the Kafka Consumer
 topic = "distributed-video1"
 
@@ -17,7 +18,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/video_feed', methods=['GET'])
+@app.route('/videoFeed', methods=['GET'])
 def video_feed():
     """
     This is the heart of our video display. Notice we set the mimetype to 
